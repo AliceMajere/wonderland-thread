@@ -1,0 +1,21 @@
+{
+  "name": "alicemajere/thread",
+  "description": "Simple multi-threading management library",
+  "authors": [
+    {
+      "name": "Alice Praud",
+      "email": "alice@jembee.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.4",
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "Alicemajere\\Thread\\": "src/"
+    }
+  }
+}
