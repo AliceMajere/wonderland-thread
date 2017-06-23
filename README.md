@@ -1,4 +1,4 @@
-# Project Title
+# Thread
 
 Thread is a small PHP library to manage simple multi-threading with async event handler. 
 This library use the pcntlk_* forking function, so a basic installation of PHP is enough to use it.
@@ -69,7 +69,7 @@ listen to and a closure function that will tell the Listener what to do for this
 of Event definition is found in the 
 Event class.
 
-```$xslt
+```
 $threadPool->addListener(new Listener(
     Event::POOL_RUN_START, // Event to trigger the listener
     function (Event $event) use ($website) {

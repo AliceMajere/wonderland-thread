@@ -6,13 +6,13 @@ use Alicemajere\Thread\Mediator\Listener\ListenerInterface;
 use Alicemajere\Thread\Mediator\Mediator;
 use Alicemajere\Thread\Factory\EventFactory;
 
-class ThreadPoolMediator
+abstract class AbstractThreadPoolMediator
 {
-    /** @var ThreadPoolMediator */
+    /** @var Mediator */
     private $mediator;
 
     /**
-     * @return ThreadPoolMediator
+     * @return Mediator
      */
     public function getMediator()
     {

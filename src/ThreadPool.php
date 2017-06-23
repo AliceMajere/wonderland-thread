@@ -5,7 +5,7 @@ namespace Alicemajere\Thread;
 use Alicemajere\Thread\Event\Event;
 use Alicemajere\Thread\Exception\ThreadException;
 
-class ThreadPool extends ThreadPoolMediator
+class ThreadPool extends AbstractThreadPoolMediator
 {
     // 0.2s
     const SLEEP_TIME_MS = 50000;
