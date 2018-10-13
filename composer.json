@@ -33,6 +33,7 @@
         "test": [
             "composer validate --no-interaction",
             "vendor/bin/covers-validator",
+            "cp phpunit.xml.dist phpunit.xml",
             "vendor/bin/phpunit"
         ],
         "cs": [
