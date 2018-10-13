@@ -1,5 +1,5 @@
 <?php
 
-namespace Alicemajere\Thread\Mediator\Exception;
+namespace Wonderland\Thread\Mediator\Exception;
 
 class ListenerException extends \Exception {}

@@ -1,9 +1,9 @@
 <?php
 
-namespace Alicemajere\Thread\Event;
+namespace Wonderland\Thread\Event;
 
-use Alicemajere\Thread\Mediator\Event\EventInterface;
-use Alicemajere\Thread\Thread;
+use Wonderland\Thread\Mediator\Event\EventInterface;
+use Wonderland\Thread\Thread;
 
 class Event implements EventInterface
 {

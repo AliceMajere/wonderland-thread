@@ -1,11 +1,11 @@
 <?php
 
-namespace Alicemajere\Thread\Factory;
+namespace Wonderland\Thread\Factory;
 
-use Alicemajere\Thread\Event\Event;
-use Alicemajere\Thread\Thread;
-use Alicemajere\Thread\ThreadPool;
-use Alicemajere\Thread\ThreadPoolMediator;
+use Wonderland\Thread\Event\Event;
+use Wonderland\Thread\Thread;
+use Wonderland\Thread\ThreadPool;
+use Wonderland\Thread\ThreadPoolMediator;
 
 class EventFactory
 {

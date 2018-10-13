@@ -1,8 +1,8 @@
 <?php
 
-namespace Alicemajere\Thread\Factory;
+namespace Wonderland\Thread\Factory;
 
-use Alicemajere\Thread\Thread;
+use Wonderland\Thread\Thread;
 
 class ThreadFactory
 {

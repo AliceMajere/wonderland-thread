@@ -1,8 +1,8 @@
 <?php
 
-namespace Alicemajere\Thread\Mediator\Listener;
+namespace Wonderland\Thread\Mediator\Listener;
 
-use Alicemajere\Thread\Mediator\Event\EventInterface;
+use Wonderland\Thread\Mediator\Event\EventInterface;
 
 class Listener implements ListenerInterface
 {

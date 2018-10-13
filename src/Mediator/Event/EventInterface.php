@@ -1,6 +1,6 @@
 <?php
 
-namespace Alicemajere\Thread\Mediator\Event;
+namespace Wonderland\Thread\Mediator\Event;
 
 interface EventInterface
 {

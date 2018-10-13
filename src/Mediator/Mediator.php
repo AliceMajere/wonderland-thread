@@ -1,9 +1,9 @@
 <?php
 
-namespace Alicemajere\Thread\Mediator;
+namespace Wonderland\Thread\Mediator;
 
-use Alicemajere\Thread\Mediator\Event\EventInterface;
-use Alicemajere\Thread\Mediator\Listener\ListenerInterface;
+use Wonderland\Thread\Mediator\Event\EventInterface;
+use Wonderland\Thread\Mediator\Listener\ListenerInterface;
 
 class Mediator
 {

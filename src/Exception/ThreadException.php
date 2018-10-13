@@ -1,5 +1,5 @@
 <?php
 
-namespace Alicemajere\Thread\Exception;
+namespace Wonderland\Thread\Exception;
 
 class ThreadException extends \Exception{}

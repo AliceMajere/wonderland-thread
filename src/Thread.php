@@ -1,8 +1,8 @@
 <?php
 
-namespace Alicemajere\Thread;
+namespace Wonderland\Thread;
 
-use Alicemajere\Thread\Exception\ThreadException;
+use Wonderland\Thread\Exception\ThreadException;
 
 class Thread
 {
