@@ -1,3 +1,6 @@
+
+``Work in progress. Not working at the moment. check the issues to see the progress of the project reset``
+
 # Thread
 
 Thread is a small PHP library to manage simple multi-threading with async event handler. 
