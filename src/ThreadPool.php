@@ -8,7 +8,7 @@ use Wonderland\Thread\Exception\ThreadException;
 class ThreadPool extends AbstractThreadPoolMediator
 {
     // 0.2s
-    const SLEEP_TIME_MS = 50000;
+    private const SLEEP_TIME_MS = 50000;
 
     /** @var Thread[] $childs */
     private $threads;
@@ -68,7 +68,7 @@ class ThreadPool extends AbstractThreadPoolMediator
     public function addThread(Thread $thread)
     {
         if (null === $thread) {
-            throw new ThreadException('Le paramètre doit être une instance de ' . Thread::class);
+            throw new ThreadException('The parameter need to be an instance of ' . Thread::class);
         }
 
         $this->threads = array_merge($this->threads, [$thread]);
@@ -110,7 +110,7 @@ class ThreadPool extends AbstractThreadPoolMediator
     }
 
     /**
-     *
+     * @throws ThreadException
      */
     public function run()
     {
@@ -126,6 +126,7 @@ class ThreadPool extends AbstractThreadPoolMediator
 
     /**
      * @return bool
+     * @throws ThreadException
      */
     private function isRunningThreads()
     {
@@ -184,6 +185,7 @@ class ThreadPool extends AbstractThreadPoolMediator
 
     /**
      * @param Thread $thread
+     * @throws ThreadException
      */
     private function processThread(Thread $thread)
     {

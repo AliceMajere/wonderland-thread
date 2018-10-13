@@ -2,16 +2,16 @@
 
 namespace Wonderland\Thread\Factory;
 
+use Wonderland\Thread\AbstractThreadPoolMediator;
 use Wonderland\Thread\Event\Event;
 use Wonderland\Thread\Thread;
 use Wonderland\Thread\ThreadPool;
-use Wonderland\Thread\ThreadPoolMediator;
 
 class EventFactory
 {
     /**
      * @param string $eventName
-     * @param ThreadPool|ThreadPoolMediator $pool
+     * @param ThreadPool|AbstractThreadPoolMediator $pool
      * @param Thread|null $thread
      * @return Event
      */
