@@ -1,7 +1,11 @@
 <?php
 
-namespace Alicemajere\Thread\Mediator\Event;
+namespace WonderlandThread\Thread\Mediator\Event;
 
+/**
+ * Interface EventInterface
+ * @package WonderlandThread\Thread\Mediator\Event
+ */
 interface EventInterface
 {
     /**

@@ -1,9 +1,13 @@
 <?php
 
-namespace Alicemajere\Thread\Factory;
+namespace WonderlandThread\Thread\Factory;
 
-use Alicemajere\Thread\Thread;
+use WonderlandThread\Thread\Thread;
 
+/**
+ * Class ThreadFactory
+ * @package WonderlandThread\Thread\Factory
+ */
 class ThreadFactory
 {
     /**

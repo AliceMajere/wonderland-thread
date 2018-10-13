@@ -1,17 +1,21 @@
 <?php
 
-namespace Alicemajere\Thread\Factory;
+namespace WonderlandThread\Thread\Factory;
 
-use Alicemajere\Thread\Event\Event;
-use Alicemajere\Thread\Thread;
-use Alicemajere\Thread\ThreadPool;
-use Alicemajere\Thread\ThreadPoolMediator;
+use WonderlandThread\Thread\Event\Event;
+use WonderlandThread\Thread\Thread;
+use WonderlandThread\Thread\ThreadPool;
+use WonderlandThread\Thread\AbstractThreadPoolMediator;
 
+/**
+ * Class EventFactory
+ * @package WonderlandThread\Thread\Factory
+ */
 class EventFactory
 {
     /**
      * @param string $eventName
-     * @param ThreadPool|ThreadPoolMediator $pool
+     * @param ThreadPool|AbstractThreadPoolMediator $pool
      * @param Thread|null $thread
      * @return Event
      */

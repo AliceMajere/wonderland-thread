@@ -1,9 +1,13 @@
 <?php
 
-namespace Alicemajere\Thread\Mediator\Listener;
+namespace WonderlandThread\Thread\Mediator\Listener;
 
-use Alicemajere\Thread\Mediator\Event\EventInterface;
+use WonderlandThread\Thread\Mediator\Event\EventInterface;
 
+/**
+ * Class Listener
+ * @package WonderlandThread\Thread\Mediator\Listener
+ */
 class Listener implements ListenerInterface
 {
     /** @var string $eventName */

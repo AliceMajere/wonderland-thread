@@ -1,10 +1,14 @@
 <?php
 
-namespace Alicemajere\Thread;
+namespace WonderlandThread\Thread;
 
-use Alicemajere\Thread\Event\Event;
-use Alicemajere\Thread\Exception\ThreadException;
+use WonderlandThread\Thread\Event\Event;
+use WonderlandThread\Thread\Exception\ThreadException;
 
+/**
+ * Class ThreadPool
+ * @package WonderlandThread\Thread
+ */
 class ThreadPool extends AbstractThreadPoolMediator
 {
     // 0.2s

@@ -1,10 +1,14 @@
 <?php
 
-namespace Alicemajere\Thread\Event;
+namespace WonderlandThread\Thread\Event;
 
-use Alicemajere\Thread\Mediator\Event\EventInterface;
-use Alicemajere\Thread\Thread;
+use WonderlandThread\Thread\Mediator\Event\EventInterface;
+use WonderlandThread\Thread\Thread;
 
+/**
+ * Class Event
+ * @package WonderlandThread\Thread\Event
+ */
 class Event implements EventInterface
 {
     const POOL_RUN_START = 1;

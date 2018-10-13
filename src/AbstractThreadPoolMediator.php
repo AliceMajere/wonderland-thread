@@ -1,11 +1,15 @@
 <?php
 
-namespace Alicemajere\Thread;
+namespace WonderlandThread\Thread;
 
-use Alicemajere\Thread\Mediator\Listener\ListenerInterface;
-use Alicemajere\Thread\Mediator\Mediator;
-use Alicemajere\Thread\Factory\EventFactory;
+use WonderlandThread\Thread\Mediator\Listener\ListenerInterface;
+use WonderlandThread\Thread\Mediator\Mediator;
+use WonderlandThread\Thread\Factory\EventFactory;
 
+/**
+ * Class AbstractThreadPoolMediator
+ * @package WonderlandThread\Thread
+ */
 abstract class AbstractThreadPoolMediator
 {
     /** @var Mediator */

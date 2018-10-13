@@ -1,10 +1,14 @@
 <?php
 
-namespace Alicemajere\Thread\Mediator;
+namespace WonderlandThread\Thread\Mediator;
 
-use Alicemajere\Thread\Mediator\Event\EventInterface;
-use Alicemajere\Thread\Mediator\Listener\ListenerInterface;
+use WonderlandThread\Thread\Mediator\Event\EventInterface;
+use WonderlandThread\Thread\Mediator\Listener\ListenerInterface;
 
+/**
+ * Class Mediator
+ * @package WonderlandThread\Thread\Mediator
+ */
 class Mediator
 {
     /** @var ListenerInterface[][] */

@@ -1,9 +1,13 @@
 <?php
 
-namespace Alicemajere\Thread;
+namespace WonderlandThread\Thread;
 
-use Alicemajere\Thread\Exception\ThreadException;
+use WonderlandThread\Thread\Exception\ThreadException;
 
+/**
+ * Class Thread
+ * @package WonderlandThread\Thread
+ */
 class Thread
 {
     const EXIT_STATUS_SUCCESS = 0;
