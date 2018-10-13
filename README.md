@@ -26,7 +26,7 @@ in the "repositories" index of your composer.json
 
 Just require the package with composer
 ```
-composer require alicemajere/thread
+composer require alicemajere/wonderland-thread
 ```
 
 ### Usage

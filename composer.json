@@ -1,6 +1,6 @@
 {
-  "name": "alicemajere/thread",
-  "description": "Simple multi-threading management library",
+  "name": "alicemajere/wonderland-thread",
+  "description": "Library to manage simple multi-threading with async event handler",
   "authors": [
     {
       "name": "Alice Praud",
