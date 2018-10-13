@@ -2,4 +2,5 @@
 
 namespace Wonderland\Thread\Exception;
 
-class ThreadException extends \Exception{}
+class ThreadException extends \Exception{
+}

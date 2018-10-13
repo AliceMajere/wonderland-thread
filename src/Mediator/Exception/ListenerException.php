@@ -2,4 +2,5 @@
 
 namespace Wonderland\Thread\Mediator\Exception;
 
-class ListenerException extends \Exception {}
+class ListenerException extends \Exception {
+}
