@@ -8,6 +8,6 @@ interface EventInterface
 	/**
 	 * @return string
 	 */
-	public function getEventName();
+	public function getEventName(): string;
 
 }

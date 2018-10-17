@@ -8,31 +8,35 @@ use Wonderland\Thread\Mediator\Listener\ListenerInterface;
 class Mediator
 {
 	/** @var ListenerInterface[][] */
-	private $listeners;
+	private $listeners = [];
 
 	/**
 	 * @return ListenerInterface[][]
 	 */
-	public function getListeners()
+	public function getListeners(): array
 	{
 		return $this->listeners;
 	}
 
 	/**
 	 * @param ListenerInterface $listener
+	 * @return Mediator
 	 */
-	public function addListener(ListenerInterface $listener)
+	public function addListener(ListenerInterface $listener): self
 	{
 		$this->listeners[$listener->getEventName()][] = $listener;
+
+		return $this;
 	}
 
 	/**
 	 * @param ListenerInterface $listener
+	 * @return Mediator
 	 */
-	public function removeListener(ListenerInterface $listener)
+	public function removeListener(ListenerInterface $listener): self
 	{
 		if (!isset($this->listeners[$listener->getEventName()])) {
-			return;
+			return $this;
 		}
 
 		$key = array_search($listener, $this->listeners[$listener->getEventName()]);
@@ -44,6 +48,8 @@ class Mediator
 		if (empty($this->listeners[$listener->getEventName()])) {
 			unset($this->listeners[$listener->getEventName()]);
 		}
+
+		return $this;
 	}
 
 	/**

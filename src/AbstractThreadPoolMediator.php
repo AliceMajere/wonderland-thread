@@ -29,25 +29,31 @@ abstract class AbstractThreadPoolMediator
 
 	/**
 	 * @param ListenerInterface $listener
+	 * @return AbstractThreadPoolMediator
 	 */
-	public function addListener(ListenerInterface $listener)
+	public function addListener(ListenerInterface $listener): self
 	{
 		$this->mediator->addListener($listener);
+
+		return $this;
 	}
 
 	/**
 	 * @param ListenerInterface $listener
+	 * @return AbstractThreadPoolMediator
 	 */
-	public function removeListener(ListenerInterface $listener)
+	public function removeListener(ListenerInterface $listener): self
 	{
 		$this->mediator->removeListener($listener);
+
+		return $this;
 	}
 
 	/**
 	 * @param string $eventName
 	 * @param Thread|null $thread
 	 */
-	public function notify($eventName, $thread = null)
+	public function notify(string $eventName, ?Thread $thread = null)
 	{
 		$this->getMediator()->notify($eventName, EventFactory::create($eventName, $this, $thread));
 	}

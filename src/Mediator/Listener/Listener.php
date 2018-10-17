@@ -17,7 +17,7 @@ class Listener implements ListenerInterface
 	 * @param string $eventName
 	 * @param callable|null $callback
 	 */
-	public function __construct($eventName, callable $callback = null)
+	public function __construct(string $eventName, callable $callback = null)
 	{
 		$this->eventName = $eventName;
 		$this->callback = $callback;
@@ -26,7 +26,7 @@ class Listener implements ListenerInterface
 	/**
 	 * @inheritDoc
 	 */
-	public function getEventName()
+	public function getEventName(): string
 	{
 		return $this->eventName;
 	}
@@ -34,7 +34,7 @@ class Listener implements ListenerInterface
 	/**
 	 * @inheritDoc
 	 */
-	public function setEventName($eventName)
+	public function setEventName(string $eventName): self
 	{
 		$this->eventName = $eventName;
 
@@ -44,7 +44,7 @@ class Listener implements ListenerInterface
 	/**
 	 * @inheritDoc
 	 */
-	public function setCallback(callable $callback)
+	public function setCallback(callable $callback): ListenerInterface
 	{
 		$this->callback = $callback;
 
@@ -58,5 +58,4 @@ class Listener implements ListenerInterface
 	{
 		($this->callback)($event);
 	}
-
 }

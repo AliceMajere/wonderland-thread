@@ -6,13 +6,12 @@ use Wonderland\Thread\Thread;
 
 class ThreadFactory
 {
-
 	/**
 	 * @param $processName
 	 * @param callable $function
 	 * @return Thread
 	 */
-	public static function create($processName, callable $function)
+	public static function create(string $processName, callable $function): Thread
 	{
 		$thread = new Thread();
 		$thread->setCallback($function);

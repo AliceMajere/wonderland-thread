@@ -19,9 +19,9 @@ class Thread
 	private $callback;
 
 	/**
-	 * @return int
+	 * @return int|null
 	 */
-	public function getPid()
+	public function getPid(): ?int
 	{
 		return $this->pid;
 	}
@@ -30,7 +30,7 @@ class Thread
 	 * @param int $pid
 	 * @return Thread
 	 */
-	public function setPid($pid)
+	public function setPid(int $pid): self
 	{
 		$this->pid = $pid;
 
@@ -40,7 +40,7 @@ class Thread
 	/**
 	 * @return string
 	 */
-	public function getProcessName()
+	public function getProcessName(): ?string
 	{
 		return $this->processName;
 	}
@@ -49,7 +49,7 @@ class Thread
 	 * @param string $processName
 	 * @return Thread
 	 */
-	public function setProcessName($processName)
+	public function setProcessName(string $processName): self
 	{
 		$this->processName = $processName;
 
@@ -59,7 +59,7 @@ class Thread
 	/**
 	 * @return callable
 	 */
-	public function getCallback()
+	public function getCallback(): ?callable
 	{
 		return $this->callback;
 	}
@@ -68,7 +68,7 @@ class Thread
 	 * @param callable $callback
 	 * @return Thread
 	 */
-	public function setCallback(callable $callback)
+	public function setCallback(callable $callback): self
 	{
 		$this->callback = $callback;
 
@@ -80,7 +80,7 @@ class Thread
 	 * @return int
 	 * @throws ThreadException
 	 */
-	public function run($processName)
+	public function run(string $processName): int
 	{
 		if (null === $this->callback) {
 			throw new ThreadException('No callback function defined for the thread');

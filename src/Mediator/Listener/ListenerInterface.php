@@ -10,13 +10,13 @@ interface ListenerInterface
 	/**
 	 * @return string
 	 */
-	public function getEventName();
+	public function getEventName(): string;
 
 	/**
 	 * @param callable $callback
 	 * @return $this
 	 */
-	public function setCallback(callable $callback);
+	public function setCallback(callable $callback): self;
 
 	/**
 	 * @param EventInterface $event

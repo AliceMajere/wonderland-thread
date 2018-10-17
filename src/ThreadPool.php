@@ -33,8 +33,14 @@ class ThreadPool extends AbstractThreadPoolMediator
 		parent::__construct();
 		$this->threads = [];
 		$this->runningThreads = [];
+		$this->toRunThreads = [];
+		$this->isRunning = false;
+		$this->maxRunningThreadNb = 0;
 	}
 
+	/**
+	 *
+	 */
 	public function __destruct()
 	{
 		pcntl_waitpid(-1, $status, WNOHANG);
@@ -43,41 +49,47 @@ class ThreadPool extends AbstractThreadPoolMediator
 	/**
 	 * @return Thread[]
 	 */
-	public function getThreads()
+	public function getThreads(): array
 	{
 		return $this->threads;
 	}
 
 	/**
 	 * @param Thread[] $threads
+	 * @return ThreadPool
 	 * @throws ThreadException
 	 */
-	public function setThreads($threads)
+	public function setThreads(array $threads): self
 	{
 		if (true === $this->isRunning) {
 			throw new ThreadException('Error. The pool is running, the list of thread in the pool is locked.');
 		}
 
 		$this->threads = $threads;
+
+		return $this;
 	}
 
 	/**
 	 * @param Thread $thread
+	 * @return ThreadPool
 	 * @throws ThreadException
 	 */
-	public function addThread(Thread $thread)
+	public function addThread(Thread $thread): self
 	{
 		if (null === $thread) {
 			throw new ThreadException('The parameter need to be an instance of ' . Thread::class);
 		}
 
 		$this->threads = array_merge($this->threads, [$thread]);
+
+		return $this;
 	}
 
 	/**
 	 * @return int
 	 */
-	public function getMaxRunningThreadNb()
+	public function getMaxRunningThreadNb(): int
 	{
 		return $this->maxRunningThreadNb;
 	}
@@ -86,7 +98,7 @@ class ThreadPool extends AbstractThreadPoolMediator
 	 * @param int $maxRunningThreadNb
 	 * @return ThreadPool
 	 */
-	public function setMaxRunningThreadNb($maxRunningThreadNb)
+	public function setMaxRunningThreadNb(int $maxRunningThreadNb): self
 	{
 		$this->maxRunningThreadNb = $maxRunningThreadNb;
 
@@ -96,7 +108,7 @@ class ThreadPool extends AbstractThreadPoolMediator
 	/**
 	 * @return Thread[]
 	 */
-	public function getToRunThreads()
+	public function getToRunThreads(): array
 	{
 		return $this->toRunThreads;
 	}
@@ -104,7 +116,7 @@ class ThreadPool extends AbstractThreadPoolMediator
 	/**
 	 * @return Thread[]
 	 */
-	public function getRunningThreads()
+	public function getRunningThreads(): array
 	{
 		return $this->runningThreads;
 	}
@@ -128,7 +140,7 @@ class ThreadPool extends AbstractThreadPoolMediator
 	 * @return bool
 	 * @throws ThreadException
 	 */
-	private function isRunningThreads()
+	private function isRunningThreads(): bool
 	{
 		if (count($this->toRunThreads) > 0) {
 			while (count($this->runningThreads) < $this->maxRunningThreadNb && count($this->toRunThreads) > 0) {
@@ -235,7 +247,7 @@ class ThreadPool extends AbstractThreadPoolMediator
 	/**
 	 * @return bool
 	 */
-	private function isCli()
+	private function isCli(): bool
 	{
 		return PHP_SAPI === 'cli';
 	}

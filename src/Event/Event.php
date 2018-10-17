@@ -49,12 +49,17 @@ class Event implements EventInterface
 	public function __construct($eventName)
 	{
 		$this->eventName = $eventName;
+		$this->threadNb = 0;
+		$this->runningThreadNb = 0;
+		$this->threadDoneNb = 0;
+		$this->threadLeftNb = 0;
+		$this->maxRunningThreadNb = 0;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getEventName()
+	public function getEventName(): string
 	{
 		return $this->eventName;
 	}
@@ -63,7 +68,7 @@ class Event implements EventInterface
 	 * @param string $eventName
 	 * @return Event
 	 */
-	public function setEventName($eventName)
+	public function setEventName(string $eventName): self
 	{
 		$this->eventName = $eventName;
 
@@ -73,7 +78,7 @@ class Event implements EventInterface
 	/**
 	 * @return int
 	 */
-	public function getThreadNb()
+	public function getThreadNb(): int
 	{
 		return $this->threadNb;
 	}
@@ -82,7 +87,7 @@ class Event implements EventInterface
 	 * @param int $threadNb
 	 * @return Event
 	 */
-	public function setThreadNb($threadNb)
+	public function setThreadNb(int $threadNb): self
 	{
 		$this->threadNb = $threadNb;
 
@@ -92,7 +97,7 @@ class Event implements EventInterface
 	/**
 	 * @return int
 	 */
-	public function getThreadDoneNb()
+	public function getThreadDoneNb(): int
 	{
 		return $this->threadDoneNb;
 	}
@@ -101,7 +106,7 @@ class Event implements EventInterface
 	 * @param int $threadDoneNb
 	 * @return Event
 	 */
-	public function setThreadDoneNb($threadDoneNb)
+	public function setThreadDoneNb(int $threadDoneNb): self
 	{
 		$this->threadDoneNb = $threadDoneNb;
 
@@ -111,7 +116,7 @@ class Event implements EventInterface
 	/**
 	 * @return int
 	 */
-	public function getThreadLeftNb()
+	public function getThreadLeftNb(): int
 	{
 		return $this->threadLeftNb;
 	}
@@ -120,7 +125,7 @@ class Event implements EventInterface
 	 * @param int $threadLeftNb
 	 * @return Event
 	 */
-	public function setThreadLeftNb($threadLeftNb)
+	public function setThreadLeftNb(int $threadLeftNb): self
 	{
 		$this->threadLeftNb = $threadLeftNb;
 
@@ -130,7 +135,7 @@ class Event implements EventInterface
 	/**
 	 * @return int
 	 */
-	public function getMaxRunningThreadNb()
+	public function getMaxRunningThreadNb(): int
 	{
 		return $this->maxRunningThreadNb;
 	}
@@ -139,7 +144,7 @@ class Event implements EventInterface
 	 * @param int $maxRunningThreadNb
 	 * @return Event
 	 */
-	public function setMaxRunningThreadNb($maxRunningThreadNb)
+	public function setMaxRunningThreadNb(int $maxRunningThreadNb): self
 	{
 		$this->maxRunningThreadNb = $maxRunningThreadNb;
 
@@ -149,7 +154,7 @@ class Event implements EventInterface
 	/**
 	 * @return int
 	 */
-	public function getRunningThreadNb()
+	public function getRunningThreadNb(): int
 	{
 		return $this->runningThreadNb;
 	}
@@ -158,7 +163,7 @@ class Event implements EventInterface
 	 * @param int $runningThreadNb
 	 * @return Event
 	 */
-	public function setRunningThreadNb($runningThreadNb)
+	public function setRunningThreadNb(int $runningThreadNb): self
 	{
 		$this->runningThreadNb = $runningThreadNb;
 
@@ -168,7 +173,7 @@ class Event implements EventInterface
 	/**
 	 * @return Thread
 	 */
-	public function getThread()
+	public function getThread(): ?Thread
 	{
 		return $this->thread;
 	}
@@ -177,7 +182,7 @@ class Event implements EventInterface
 	 * @param Thread|null $thread
 	 * @return $this
 	 */
-	public function setThread(Thread $thread = null)
+	public function setThread(Thread $thread = null): self
 	{
 		$this->thread = $thread;
 
