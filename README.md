@@ -11,7 +11,7 @@ A small simple multi-threading library to include in projects
 
 ## Recent Update
 
-Current updating the project with unit test, builds and soon packagist
+The project just got released on packagist with release 1.0.0.
 
 ## Installation
 
