@@ -2,7 +2,7 @@
     "name": "alicemajere/wonderland-thread",
     "description": "Simple multi-threading management library",
     "type": "library",
-    "license": "MIT License",
+    "license": "MIT",
     "authors": [
         {
             "name": "Alice Praud",
