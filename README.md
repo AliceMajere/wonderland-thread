@@ -1,16 +1,14 @@
+[![Build Status](https://travis-ci.org/AliceMajere/wonderland-thread.svg?branch=master)](https://travis-ci.org/AliceMajere/wonderland-thread) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/AliceMajere/wonderland-thread/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/AliceMajere/wonderland-thread/?branch=master) [![Code Coverage](https://scrutinizer-ci.com/g/AliceMajere/wonderland-thread/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/AliceMajere/wonderland-thread/?branch=master) [![Code Intelligence Status](https://scrutinizer-ci.com/g/AliceMajere/wonderland-thread/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
 
-``Work in progress. Not working at the moment. check the issues to see the progress of the project reset``
+# Wonderland Thread
 
-# Thread
+A small simple multi-threading library to include in projects
 
-Thread is a small PHP library to manage simple multi-threading with async event handler. 
-This library use the pcntlk_* forking function, so a basic installation of PHP is enough to use it.
+## Recent Update
 
-## Getting Started
+Current updating the project with unit test, builds and soon packagist
 
-These instructions will get you a copy of the project up and running.
-
-### Prerequisites
+## Installation
 
 You need to have composer and autloader installed. To be able to install the package, add this entry 
 in the "repositories" index of your composer.json 
@@ -18,34 +16,32 @@ in the "repositories" index of your composer.json
 ```
       {
         "type": "vcs",
-        "url":  "git@bitbucket.org:alicemajere/thread.git"
+        "url":  "git@github.com:AliceMajere/wonderland-thread.git"
       }
 ```
 
-### Installing
-
 Just require the package with composer
 ```
-composer require alicemajere/thread
+composer require alicemajere/wonderland-thread
 ```
 
 ### Usage
 
 To start a multi-threading Pool, just create a new instance of ThreadPool
-```
+``` php
 $threadPool = new ThreadPool(); 
 ```
 
 We setup a maximum number of Thread to run at the same time. If we add 200 Threads to the Pool, only 5
 of them will run at the same time until the Pool processed all the 200 Threads
-```
+``` php
 $threadPool->setMaxRunningThreadNb(5);
 ```
 
 Add one or more Thread to the Pool by creating a new instance of Thread. A Thread take two parameters,
 a name and a closure function that will tell the Thread what to do. The closure have to return
 an exit status from the ones defined in the Thread class constants.
-```
+``` php
 $thread = ThreadFactory::create(
     'ThreadName',
     function ($processName) {
@@ -72,7 +68,7 @@ listen to and a closure function that will tell the Listener what to do for this
 of Event definition is found in the 
 Event class.
 
-```
+``` php
 $threadPool->addListener(new Listener(
     Event::POOL_RUN_START, // Event to trigger the listener
     function (Event $event) use ($website) {
@@ -87,23 +83,14 @@ $threadPool->addListener(new Listener(
 );
 ```
 
-## Running the tests
+## Prerequisites
 
-Work in progress
+PHP >= 7.2
 
-### Break down into end to end tests
+## Getting help
 
-Work in progress
-
-## Contributing
-
-Please send me a mail to my [mail](mailto:alice@jembee.com) if you want to contribute to the project.
-
-## Versioning
-
-I use [git](https://git-scm.com/) for versioning. For the versions available, see the 
-[commits on master on this repository](https://bitbucket.org/alicemajere/thread/commits/branch/master). 
+If you've instead found a bug in the library or would like new features added, go ahead and open issues or pull requests against this repo!
 
 ## Authors
 
-* **Alice Praud** - *Initial work* - [AliceMajere](https://bitbucket.org/alicemajere/)
+* **Alice Praud** - *Initial work* - [AliceMajere](https://github.com/AliceMajere/wonderland-thread/)
