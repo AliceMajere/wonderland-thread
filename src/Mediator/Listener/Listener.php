@@ -58,4 +58,5 @@ class Listener implements ListenerInterface
 	{
 		($this->callback)($event);
 	}
+
 }

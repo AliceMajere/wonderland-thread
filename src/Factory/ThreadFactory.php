@@ -6,6 +6,7 @@ use Wonderland\Thread\Thread;
 
 class ThreadFactory
 {
+
 	/**
 	 * @param $processName
 	 * @param callable $function

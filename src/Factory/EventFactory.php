@@ -9,6 +9,7 @@ use Wonderland\Thread\ThreadPool;
 
 class EventFactory
 {
+
 	/**
 	 * @param string $eventName
 	 * @param ThreadPool|AbstractThreadPoolMediator $pool

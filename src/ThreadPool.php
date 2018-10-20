@@ -57,14 +57,9 @@ class ThreadPool extends AbstractThreadPoolMediator
 	/**
 	 * @param Thread[] $threads
 	 * @return ThreadPool
-	 * @throws ThreadException
 	 */
 	public function setThreads(array $threads): self
 	{
-		if (true === $this->isRunning) {
-			throw new ThreadException('Error. The pool is running, the list of thread in the pool is locked.');
-		}
-
 		$this->threads = $threads;
 
 		return $this;
@@ -73,15 +68,10 @@ class ThreadPool extends AbstractThreadPoolMediator
 	/**
 	 * @param Thread $thread
 	 * @return ThreadPool
-	 * @throws ThreadException
 	 */
 	public function addThread(Thread $thread): self
 	{
-		if (null === $thread) {
-			throw new ThreadException('The parameter need to be an instance of ' . Thread::class);
-		}
-
-		$this->threads = array_merge($this->threads, [$thread]);
+		$this->threads[] = $thread;
 
 		return $this;
 	}
@@ -152,6 +142,8 @@ class ThreadPool extends AbstractThreadPoolMediator
 	}
 
 	/**
+	 * can't test some part of it this since we can't unit-test in web and we're never in a child
+	 * process when pid 0 when unit-testing since the coverage is done by the parent thread
 	 * @param Thread $thread
 	 * @throws ThreadException
 	 */
@@ -161,10 +153,14 @@ class ThreadPool extends AbstractThreadPoolMediator
 
 		switch ($pid) {
 			case -1: //error forking
+				// @codeCoverageIgnoreStart
 				throw new ThreadException('Error while trying to fork. Check your server installation');
+				// @codeCoverageIgnoreEnd
 			case 0: // child
+				// @codeCoverageIgnoreStart
 				$this->processThread($thread);
 				break;
+				// @codeCoverageIgnoreEnd
 			default: //parent
 				$thread->setPid($pid);
 				$this->runningThreads[] = $thread;
@@ -178,24 +174,26 @@ class ThreadPool extends AbstractThreadPoolMediator
 	 */
 	private function waitOnThreads()
 	{
-		$this->notify(Event::POOL_PRE_WAIT_TIC);
+		$this->notify(Event::POOL_PRE_WAIT_TICK);
 		foreach ($this->runningThreads as $k => $thread) {
 
 			$res = pcntl_waitpid($thread->getPid(), $status, WNOHANG);
-			$this->notify(Event::POOL_WAIT_TIC_PID);
+			$this->notify(Event::POOL_WAIT_TICK_PID);
 
 			if ($res === -1 || $res > 0) {
-				$this->notify(Event::POOL_WAIT_TIC_PID_REMOVED, $thread);
+				$this->notify(Event::POOL_WAIT_TICK_PID_REMOVED, $thread);
 				unset($this->runningThreads[$k]);
 			}
 
 		}
-		$this->notify(Event::POOL_POST_WAIT_TIC);
+		$this->notify(Event::POOL_POST_WAIT_TICK);
 
 		usleep(self::SLEEP_TIME_MS);
 	}
 
 	/**
+	 * @codeCoverageIgnore Can't test since this is only run in a child thread.. which doesnt' go throug the
+	 * unit-test coverage which is only done in the main process
 	 * @param Thread $thread
 	 * @throws ThreadException
 	 */
@@ -220,12 +218,15 @@ class ThreadPool extends AbstractThreadPoolMediator
 	}
 
 	/**
+	 * Can't test the exception is not in cli since php-unit is only run in cli environment
 	 * @throws ThreadException
 	 */
 	private function checkEnv()
 	{
 		if (false === $this->isCli()) {
+			// @codeCoverageIgnoreStart
 			throw new ThreadException('Error. It is not safe to use process forking in other way than php-cli');
+			// @codeCoverageIgnoreEnd
 		}
 		if (0 === count($this->threads)) {
 			throw new ThreadException('Error. Can\'t run child threads processes without any added in the Pool');
@@ -238,10 +239,6 @@ class ThreadPool extends AbstractThreadPoolMediator
 	private function initRun()
 	{
 		$this->resetRun();
-
-		if (null === $this->maxRunningThreadNb) {
-			$this->maxRunningThreadNb = count($this->threads);
-		}
 	}
 
 	/**

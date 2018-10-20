@@ -7,19 +7,19 @@ use Wonderland\Thread\Thread;
 
 class Event implements EventInterface
 {
-	const POOL_RUN_START = 1;
-	const POOL_RUN_STOP = 2;
-	const POOL_NEW_THREAD = 3;
-	const POOL_PRE_WAIT_TIC = 4;
-	const POOL_POST_WAIT_TIC = 5;
-	const POOL_WAIT_TIC_PID = 6;
-	const POOL_WAIT_TIC_PID_REMOVED = 7;
+	const POOL_RUN_START = 'run_start';
+	const POOL_RUN_STOP = 'run_stop';
+	const POOL_NEW_THREAD = 'new_thread';
+	const POOL_PRE_WAIT_TICK = 'pre_wait_tick';
+	const POOL_POST_WAIT_TICK = 'post_wait_tick';
+	const POOL_WAIT_TICK_PID = 'wait_tick_pid';
+	const POOL_WAIT_TICK_PID_REMOVED = 'wait_tick_pid_removed';
 
-	const THREAD_PRE_PROCESS = 8;
-	const THREAD_POST_PROCESS = 9;
-	const THREAD_EXIT_SUCCESS = 10;
-	const THREAD_EXIT_ERROR = 11;
-	const THREAD_EXIT_UNKNOWN = 12;
+	const THREAD_PRE_PROCESS = 'pre_process';
+	const THREAD_POST_PROCESS = 'post_process';
+	const THREAD_EXIT_SUCCESS = 'exist_success';
+	const THREAD_EXIT_ERROR = 'exit_error';
+	const THREAD_EXIT_UNKNOWN = 'exit_unknown';
 
 	/** @var string $eventName */
 	private $eventName;
