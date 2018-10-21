@@ -2,8 +2,7 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/AliceMajere/wonderland-thread/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/AliceMajere/wonderland-thread/?branch=master) 
 [![Code Coverage](https://scrutinizer-ci.com/g/AliceMajere/wonderland-thread/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/AliceMajere/wonderland-thread/?branch=master) 
 [![Code Intelligence Status](https://scrutinizer-ci.com/g/AliceMajere/wonderland-thread/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence) 
-[![Latest Stable Version](https://poser.pugx.org/alicemajere/wonderland-thread/v/stable.png)](https://packagist.org/packages/alicemajere/wonderland-thread)
-[![Total Downloads](https://poser.pugx.org/alicemajere/wonderland-thread/downloads)](https://packagist.org/packages/alicemajere/wonderland-thread)
+[![License](https://poser.pugx.org/alicemajere/wonderland-thread/license)](https://packagist.org/packages/alicemajere/wonderland-thread)
 
 # Wonderland Thread
 
