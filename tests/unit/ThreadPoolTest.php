@@ -8,6 +8,8 @@ use Wonderland\Thread\Exception\ThreadException;
 use Wonderland\Thread\Mediator\Listener\AbstractListener;
 use Wonderland\Thread\Mediator\Mediator;
 use Wonderland\Thread\AbstractThread;
+use Wonderland\Thread\Tests\Implementation\SuccessThread;
+use Wonderland\Thread\Tests\Implementation\TestListener;
 use Wonderland\Thread\ThreadPool;
 
 /**
@@ -32,21 +34,20 @@ class ThreadPoolTest extends TestCase
 		$this->assertAttributeEquals([], 'toRunThreads', $this->threadPool);
 		$this->assertAttributeEquals(false, 'isRunning', $this->threadPool);
 		$this->assertAttributeEquals(0, 'maxRunningThreadNb', $this->threadPool);
-		$this->assertSame(Mediator::class, get_class($this->threadPool->getMediator()));
 
 		unset($this->threadPool);
 	}
 
 	public function test_getThreads()
 	{
-		$threads = [new AbstractThread()];
+		$threads = [new SuccessThread('')];
 		$this->assertSame($this->threadPool, $this->threadPool->setThreads($threads));
 		$this->assertSame($threads, $this->threadPool->getThreads());
 	}
 
 	public function test_addThread()
 	{
-		$thread = new AbstractThread();
+		$thread = new SuccessThread('');
 		$this->assertSame($this->threadPool, $this->threadPool->addThread($thread));
 		$this->assertContains($thread, $this->threadPool->getThreads());
 	}
@@ -77,19 +78,14 @@ class ThreadPoolTest extends TestCase
 	 */
 	public function test_run()
 	{
-		$thread = new AbstractThread();
-		$thread->setCallback(function (){ return 0;
-
-  });
-		$thread->setProcessName('unitTest');
+		$thread = new SuccessThread('');
 		$threads = [];
-		$listener = new AbstractListener(PoolEvent::POOL_NEW_THREAD, function (){
-  });
+		$listener = new TestListener();
 
 		$this->threadPool->setMaxRunningThreadNb(10);
 		$this->assertSame($this->threadPool, $this->threadPool->addListener($listener));
-		for ($i = 0; $i < 20;
-$i++) { $threads[] = clone $thread;
+		for ($i = 0; $i < 20; $i++) {
+		    $threads[] = clone $thread;
 		}
 		$this->assertSame($this->threadPool, $this->threadPool->addThread($thread));
 		$this->assertSame($this->threadPool, $this->threadPool->setThreads($threads));
@@ -106,7 +102,6 @@ $i++) { $threads[] = clone $thread;
 	{
 		$this->expectException(ThreadException::class);
 		$this->threadPool->run();
-
 	}
 
 }

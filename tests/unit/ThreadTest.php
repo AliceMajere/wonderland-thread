@@ -5,6 +5,10 @@ namespace Wonderland\Thread\Tests;
 use PHPUnit\Framework\TestCase;
 use Wonderland\Thread\Exception\ThreadException;
 use Wonderland\Thread\AbstractThread;
+use Wonderland\Thread\Mediator\Mediator;
+use Wonderland\Thread\Tests\Implementation\ErrorThread;
+use Wonderland\Thread\Tests\Implementation\ExceptionThread;
+use Wonderland\Thread\Tests\Implementation\SuccessThread;
 
 /**
  * Class ThreadTest
@@ -16,18 +20,11 @@ class ThreadTest extends TestCase
 	/** @var AbstractThread */
 	private $thread;
 
-	private $callback;
-
 	public function setUp()
 	{
-		$this->callback = function (){ return 0;
-
-  };
-
-		$this->thread = new AbstractThread();
+		$this->thread = new SuccessThread('unit-test');
+		$this->thread->setMediator(new Mediator());
 		$this->thread->setPid(1);
-		$this->thread->setProcessName('unit-test');
-		$this->thread->setCallback($this->callback);
 	}
 
 	public function test_pid()
@@ -40,19 +37,6 @@ class ThreadTest extends TestCase
 	public function test_processName()
 	{
 		$this->assertSame('unit-test', $this->thread->getProcessName());
-		$this->assertSame($this->thread, $this->thread->setProcessName('unit'));
-		$this->assertSame('unit', $this->thread->getProcessName());
-	}
-
-	public function test_callback()
-	{
-		$callback = function(){ return 1;
-
-  };
-
-		$this->assertSame($this->callback, $this->thread->getCallback());
-		$this->assertSame($this->thread, $this->thread->setCallback($callback));
-		$this->assertSame($callback, $this->thread->getCallback());
 	}
 
 	/**
@@ -60,7 +44,7 @@ class ThreadTest extends TestCase
 	 */
 	public function test_run()
 	{
-		$this->assertSame(0, $this->thread->run('unit-test'));
+		$this->assertSame(0, $this->thread->run());
 	}
 
 	/**
@@ -69,8 +53,8 @@ class ThreadTest extends TestCase
 	public function test_run_exception()
 	{
 		$this->expectException(ThreadException::class);
-		$thread = new AbstractThread();
-		$thread->run('unit-test');
+		$thread = new ExceptionThread('unit-test');
+		$thread->run();
 
 	}
 
@@ -80,11 +64,7 @@ class ThreadTest extends TestCase
 	public function test_run_exception_status()
 	{
 		$this->expectException(ThreadException::class);
-		$thread = new AbstractThread();
-		$thread->setCallback(function() { return null;
-
-  });
-		$thread->run('unit-test');
+		$thread = new ErrorThread('unit-test');
+		$thread->run();
 	}
-
 }

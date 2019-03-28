@@ -5,6 +5,7 @@ namespace Wonderland\Thread\Tests\Event;
 use PHPUnit\Framework\TestCase;
 use Wonderland\Thread\Event\PoolEvent;
 use Wonderland\Thread\AbstractThread;
+use Wonderland\Thread\Tests\Implementation\SuccessThread;
 
 /**
  * Class EventTest
@@ -21,7 +22,7 @@ class EventTest extends TestCase
 
 	public function setUp()
 	{
-		$this->thread = new AbstractThread();
+		$this->thread = new SuccessThread('');
 		$this->event = new PoolEvent('unit-test');
 		$this->event->setThread($this->thread);
 	}

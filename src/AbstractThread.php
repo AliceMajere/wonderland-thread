@@ -80,7 +80,7 @@ abstract class AbstractThread extends AbstractThreadMediator
         );
 
 		if (null === $status) {
-			throw new ThreadException('Error. You must return a process status in your callback function');
+			throw new ThreadException('Error. You must return a process status in ' . get_class($this) . ":" . $this->getMethodName());
 		}
 
 		return $status;
