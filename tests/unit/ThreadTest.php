@@ -67,4 +67,5 @@ class ThreadTest extends TestCase
 		$thread = new ErrorThread('unit-test');
 		$thread->run();
 	}
+
 }

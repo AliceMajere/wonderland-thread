@@ -15,26 +15,28 @@ abstract class AbstractThread extends AbstractThreadMediator
 	/** @var string $processName */
 	private $processName;
 
-    /**
-     * AbstractThread constructor.
-     *
-     * @param string $processName
-     */
+	/**
+	 * AbstractThread constructor.
+	 *
+	 * @param string $processName
+	 */
 	public function __construct(string $processName)
-    {
-        $this->processName = $processName;
-    }
+	{
+		$this->processName = $processName;
+	}
 
-    /**
-     * Return the name of the method to process during the thread
-     * @return string
-     */
+	/**
+	 * Return the name of the method to process during the thread
+	 *
+	 * @return string
+	 */
 	abstract protected function getMethodName(): string;
 
-    /**
-     * Return the list of dependencies that will be passed as parameters of the method referenced by getMethodName
-     * @return array
-     */
+	/**
+	 * Return the list of dependencies that will be passed as parameters of the method referenced by getMethodName
+	 *
+	 * @return array
+	 */
 	abstract protected function getDependencies(): array;
 
 	/**
@@ -75,12 +77,14 @@ abstract class AbstractThread extends AbstractThreadMediator
 		}
 
 		$status = call_user_func_array(
-            [$this, $this->getMethodName()],
-            array_merge([$this->getProcessName()], $this->getDependencies())
-        );
+			[$this, $this->getMethodName()],
+			array_merge([$this->getProcessName()], $this->getDependencies())
+		);
 
 		if (null === $status) {
-			throw new ThreadException('Error. You must return a process status in ' . get_class($this) . ":" . $this->getMethodName());
+			throw new ThreadException(
+				'Error. You must return a process status in '.get_class($this).':'.$this->getMethodName()
+			);
 		}
 
 		return $status;

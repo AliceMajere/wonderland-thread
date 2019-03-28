@@ -20,17 +20,17 @@ class EventPoolFactoryTest extends TestCase
 
 	public function test_create()
 	{
-	    $pool = new ThreadPool();
-        $thread = new SuccessThread('unit-test');
-        $event = new PoolEvent('unit-test');
-        $factoryEvent = EventPoolFactory::create('unit-test', $pool, $thread);
+		$pool = new ThreadPool();
+		$thread = new SuccessThread('unit-test');
+		$event = new PoolEvent('unit-test');
+		$factoryEvent = EventPoolFactory::create('unit-test', $pool, $thread);
 
-        $this->assertSame($event->getEventName(), $factoryEvent->getEventName());
-        $this->assertSame($event->getThreadLeftNb(), $factoryEvent->getThreadLeftNb());
-        $this->assertSame($event->getMaxRunningThreadNb(), $factoryEvent->getMaxRunningThreadNb());
-        $this->assertSame($event->getRunningThreadNb(), $factoryEvent->getRunningThreadNb());
-        $this->assertSame($event->getThreadDoneNb(), $factoryEvent->getThreadDoneNb());
-        $this->assertSame($event->getThreadNb(), $factoryEvent->getThreadNb());
+		$this->assertSame($event->getEventName(), $factoryEvent->getEventName());
+		$this->assertSame($event->getThreadLeftNb(), $factoryEvent->getThreadLeftNb());
+		$this->assertSame($event->getMaxRunningThreadNb(), $factoryEvent->getMaxRunningThreadNb());
+		$this->assertSame($event->getRunningThreadNb(), $factoryEvent->getRunningThreadNb());
+		$this->assertSame($event->getThreadDoneNb(), $factoryEvent->getThreadDoneNb());
+		$this->assertSame($event->getThreadNb(), $factoryEvent->getThreadNb());
 	}
 
 }

@@ -6,6 +6,7 @@ use Wonderland\Thread\Mediator\Event\EventInterface;
 
 interface ListenerInterface
 {
+
 	/**
 	 * @return array
 	 */

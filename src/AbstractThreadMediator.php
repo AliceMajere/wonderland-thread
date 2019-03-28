@@ -7,27 +7,28 @@ use Wonderland\Thread\Mediator\Mediator;
 
 class AbstractThreadMediator
 {
-    /** @var Mediator */
-    private $mediator;
+	/** @var Mediator */
+	private $mediator;
 
-    /**
-     * @return Mediator
-     */
-    protected function getMediator()
-    {
-        return $this->mediator;
-    }
+	/**
+	 * @return Mediator
+	 */
+	protected function getMediator()
+	{
+		return $this->mediator;
+	}
 
-    public function setMediator(Mediator $mediator)
-    {
-        $this->mediator = $mediator;
-    }
+	public function setMediator(Mediator $mediator)
+	{
+		$this->mediator = $mediator;
+	}
 
-    /**
-     * @param EventInterface $event
-     */
-    protected function notify(EventInterface $event)
-    {
-        $this->getMediator()->notify($event);
-    }
+	/**
+	 * @param EventInterface $event
+	 */
+	protected function notify(EventInterface $event)
+	{
+		$this->getMediator()->notify($event);
+	}
+
 }

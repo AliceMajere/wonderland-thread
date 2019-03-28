@@ -35,9 +35,10 @@ class Mediator
 	 */
 	public function removeListener(ListenerInterface $listener): self
 	{
-        if (false !== ($key = array_search($listener, $this->listeners, true))) {
-            unset($this->listeners[$key]);
-        }
+		$key = array_search($listener, $this->listeners, true);
+		if (false !== $key) {
+			unset($this->listeners[$key]);
+		}
 
 		return $this;
 	}

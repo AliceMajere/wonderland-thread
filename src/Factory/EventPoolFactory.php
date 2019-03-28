@@ -9,13 +9,18 @@ use Wonderland\Thread\ThreadPool;
 
 class EventPoolFactory
 {
+
 	/**
 	 * @param string                                $eventName
 	 * @param ThreadPool|AbstractThreadPoolMediator $pool
 	 * @param AbstractThread|null                   $thread
 	 * @return PoolEvent
 	 */
-	public static function create(string $eventName, AbstractThreadPoolMediator $pool, ?AbstractThread $thread = null): PoolEvent
+	public static function create(
+		string $eventName,
+		AbstractThreadPoolMediator $pool,
+		?AbstractThread $thread = null
+	): PoolEvent
 	{
 		$event = new PoolEvent($eventName);
 		$event->setThreadNb(count($pool->getThreads()));
@@ -27,4 +32,5 @@ class EventPoolFactory
 
 		return $event;
 	}
+
 }

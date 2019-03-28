@@ -85,7 +85,7 @@ class ThreadPoolTest extends TestCase
 		$this->threadPool->setMaxRunningThreadNb(10);
 		$this->assertSame($this->threadPool, $this->threadPool->addListener($listener));
 		for ($i = 0; $i < 20; $i++) {
-		    $threads[] = clone $thread;
+			$threads[] = clone $thread;
 		}
 		$this->assertSame($this->threadPool, $this->threadPool->addThread($thread));
 		$this->assertSame($this->threadPool, $this->threadPool->setThreads($threads));

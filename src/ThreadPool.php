@@ -159,7 +159,7 @@ class ThreadPool extends AbstractThreadPoolMediator
 				// @codeCoverageIgnoreEnd
 			case 0: // child
 				// @codeCoverageIgnoreStart
-                $thread->setMediator($this->getMediator());
+				$thread->setMediator($this->getMediator());
 				$this->processThread($thread);
 				break;
 				// @codeCoverageIgnoreEnd
