@@ -6,17 +6,10 @@ use Wonderland\Thread\Mediator\Event\EventInterface;
 
 interface ListenerInterface
 {
-
 	/**
-	 * @return string
+	 * @return array
 	 */
-	public function getEventName(): string;
-
-	/**
-	 * @param callable $callback
-	 * @return $this
-	 */
-	public function setCallback(callable $callback): self;
+	public function getEventMapping(): array;
 
 	/**
 	 * @param EventInterface $event

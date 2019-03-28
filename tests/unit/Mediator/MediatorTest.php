@@ -3,8 +3,8 @@
 namespace Wonderland\Thread\Tests\Mediator;
 
 use PHPUnit\Framework\TestCase;
-use Wonderland\Thread\Event\Event;
-use Wonderland\Thread\Mediator\Listener\Listener;
+use Wonderland\Thread\Event\PoolEvent;
+use Wonderland\Thread\Mediator\Listener\AbstractListener;
 use Wonderland\Thread\Mediator\Mediator;
 
 /**
@@ -24,14 +24,14 @@ class MediatorTest extends TestCase
 
 	public function test_listeners()
 	{
-		$listener = new Listener(Event::POOL_NEW_THREAD, function() {
+		$listener = new AbstractListener(PoolEvent::POOL_NEW_THREAD, function() {
   });
 		$this->assertSame([], $this->mediator->getListeners());
 		$this->assertSame($this->mediator, $this->mediator->addListener($listener));
-		$this->assertSame([Event::POOL_NEW_THREAD => [$listener]], $this->mediator->getListeners());
-		$this->assertSame($this->mediator, $this->mediator->removeListener(new Listener('fake', function(){
+		$this->assertSame([PoolEvent::POOL_NEW_THREAD => [$listener]], $this->mediator->getListeners());
+		$this->assertSame($this->mediator, $this->mediator->removeListener(new AbstractListener('fake', function(){
   })));
-		$this->mediator->notify(Event::POOL_NEW_THREAD, new Event('unit-event'));
+		$this->mediator->notify(PoolEvent::POOL_NEW_THREAD, new PoolEvent('unit-event'));
 		$this->assertSame($this->mediator, $this->mediator->removeListener($listener));
 	}
 

@@ -2,7 +2,7 @@
 
 namespace Wonderland\Thread;
 
-use Wonderland\Thread\Event\Event;
+use Wonderland\Thread\Event\PoolEvent;
 use Wonderland\Thread\Exception\ThreadException;
 
 class ThreadPool extends AbstractThreadPoolMediator
@@ -10,13 +10,13 @@ class ThreadPool extends AbstractThreadPoolMediator
 	// 0.2s
 	private const SLEEP_TIME_MS = 50000;
 
-	/** @var Thread[] $childs */
+	/** @var AbstractThread[] $childs */
 	private $threads;
 
-	/** @var Thread[] $toRunThreads */
+	/** @var AbstractThread[] $toRunThreads */
 	private $toRunThreads;
 
-	/** @var Thread[] $runningChilds */
+	/** @var AbstractThread[] $runningChilds */
 	private $runningThreads;
 
 	/** @var bool $isRunning */
@@ -47,7 +47,7 @@ class ThreadPool extends AbstractThreadPoolMediator
 	}
 
 	/**
-	 * @return Thread[]
+	 * @return AbstractThread[]
 	 */
 	public function getThreads(): array
 	{
@@ -55,7 +55,7 @@ class ThreadPool extends AbstractThreadPoolMediator
 	}
 
 	/**
-	 * @param Thread[] $threads
+	 * @param AbstractThread[] $threads
 	 * @return ThreadPool
 	 */
 	public function setThreads(array $threads): self
@@ -66,10 +66,10 @@ class ThreadPool extends AbstractThreadPoolMediator
 	}
 
 	/**
-	 * @param Thread $thread
+	 * @param AbstractThread $thread
 	 * @return ThreadPool
 	 */
-	public function addThread(Thread $thread): self
+	public function addThread(AbstractThread $thread): self
 	{
 		$this->threads[] = $thread;
 
@@ -96,7 +96,7 @@ class ThreadPool extends AbstractThreadPoolMediator
 	}
 
 	/**
-	 * @return Thread[]
+	 * @return AbstractThread[]
 	 */
 	public function getToRunThreads(): array
 	{
@@ -104,7 +104,7 @@ class ThreadPool extends AbstractThreadPoolMediator
 	}
 
 	/**
-	 * @return Thread[]
+	 * @return AbstractThread[]
 	 */
 	public function getRunningThreads(): array
 	{
@@ -144,10 +144,11 @@ class ThreadPool extends AbstractThreadPoolMediator
 	/**
 	 * can't test some part of it this since we can't unit-test in web and we're never in a child
 	 * process when pid 0 when unit-testing since the coverage is done by the parent thread
-	 * @param Thread $thread
+	 *
+	 * @param AbstractThread $thread
 	 * @throws ThreadException
 	 */
-	private function createThreadProcess(Thread $thread)
+	private function createThreadProcess(AbstractThread $thread)
 	{
 		$pid = pcntl_fork();
 
@@ -158,13 +159,14 @@ class ThreadPool extends AbstractThreadPoolMediator
 				// @codeCoverageIgnoreEnd
 			case 0: // child
 				// @codeCoverageIgnoreStart
+                $thread->setMediator($this->getMediator());
 				$this->processThread($thread);
 				break;
 				// @codeCoverageIgnoreEnd
 			default: //parent
 				$thread->setPid($pid);
 				$this->runningThreads[] = $thread;
-				$this->notify(Event::POOL_NEW_THREAD, $thread);
+				$this->notify(PoolEvent::POOL_NEW_THREAD, $thread);
 				$this->startRunStatus();
 		}
 	}
@@ -174,19 +176,19 @@ class ThreadPool extends AbstractThreadPoolMediator
 	 */
 	private function waitOnThreads()
 	{
-		$this->notify(Event::POOL_PRE_WAIT_TICK);
+		$this->notify(PoolEvent::POOL_PRE_WAIT_TICK);
 		foreach ($this->runningThreads as $k => $thread) {
 
 			$res = pcntl_waitpid($thread->getPid(), $status, WNOHANG);
-			$this->notify(Event::POOL_WAIT_TICK_PID);
+			$this->notify(PoolEvent::POOL_WAIT_TICK_PID);
 
 			if ($res === -1 || $res > 0) {
-				$this->notify(Event::POOL_WAIT_TICK_PID_REMOVED, $thread);
+				$this->notify(PoolEvent::POOL_WAIT_TICK_PID_REMOVED, $thread);
 				unset($this->runningThreads[$k]);
 			}
 
 		}
-		$this->notify(Event::POOL_POST_WAIT_TICK);
+		$this->notify(PoolEvent::POOL_POST_WAIT_TICK);
 
 		usleep(self::SLEEP_TIME_MS);
 	}
@@ -194,24 +196,24 @@ class ThreadPool extends AbstractThreadPoolMediator
 	/**
 	 * @codeCoverageIgnore Can't test since this is only run in a child thread.. which doesnt' go throug the
 	 * unit-test coverage which is only done in the main process
-	 * @param Thread $thread
+	 * @param AbstractThread $thread
 	 * @throws ThreadException
 	 */
-	private function processThread(Thread $thread)
+	private function processThread(AbstractThread $thread)
 	{
-		$this->notify(Event::THREAD_PRE_PROCESS, $thread);
-		$response = $thread->run($thread->getProcessName());
-		$this->notify(Event::THREAD_POST_PROCESS, $thread);
+		$this->notify(PoolEvent::THREAD_PRE_PROCESS, $thread);
+		$response = $thread->run();
+		$this->notify(PoolEvent::THREAD_POST_PROCESS, $thread);
 
 		switch ($response) {
-			case Thread::EXIT_STATUS_SUCCESS:
-				$this->notify(Event::THREAD_EXIT_SUCCESS, $thread);
+			case AbstractThread::EXIT_STATUS_SUCCESS:
+				$this->notify(PoolEvent::THREAD_EXIT_SUCCESS, $thread);
 				break;
-			case Thread::EXIT_STATUS_ERROR:
-				$this->notify(Event::THREAD_EXIT_ERROR, $thread);
+			case AbstractThread::EXIT_STATUS_ERROR:
+				$this->notify(PoolEvent::THREAD_EXIT_ERROR, $thread);
 				break;
 			default:
-				$this->notify(Event::THREAD_EXIT_UNKNOWN, $thread);
+				$this->notify(PoolEvent::THREAD_EXIT_UNKNOWN, $thread);
 		}
 
 		exit($response);
@@ -255,7 +257,7 @@ class ThreadPool extends AbstractThreadPoolMediator
 	private function startRunStatus()
 	{
 		if (false === $this->isRunning) {
-			$this->notify(Event::POOL_RUN_START);
+			$this->notify(PoolEvent::POOL_RUN_START);
 			$this->isRunning = true;
 		}
 	}
@@ -266,7 +268,7 @@ class ThreadPool extends AbstractThreadPoolMediator
 	private function resetRun()
 	{
 		if (true === $this->isRunning) {
-			$this->notify(Event::POOL_RUN_STOP);
+			$this->notify(PoolEvent::POOL_RUN_STOP);
 		}
 		$this->isRunning = false;
 		$this->toRunThreads = $this->threads;

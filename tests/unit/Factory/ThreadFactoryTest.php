@@ -4,7 +4,7 @@ namespace Wonderland\Thread\Tests\Factory;
 
 use PHPUnit\Framework\TestCase;
 use Wonderland\Thread\Factory\ThreadFactory;
-use Wonderland\Thread\Thread;
+use Wonderland\Thread\AbstractThread;
 
 /**
  * Class ThreadFactoryTest
@@ -18,7 +18,7 @@ class ThreadFactoryTest extends TestCase
 	{
 		$callback = function(){
   };
-		$thread = new Thread();
+		$thread = new AbstractThread();
 		$thread->setProcessName('unit-test');
 		$thread->setCallback($callback);
 

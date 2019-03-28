@@ -4,7 +4,7 @@ namespace Wonderland\Thread\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Wonderland\Thread\Exception\ThreadException;
-use Wonderland\Thread\Thread;
+use Wonderland\Thread\AbstractThread;
 
 /**
  * Class ThreadTest
@@ -13,7 +13,7 @@ use Wonderland\Thread\Thread;
  */
 class ThreadTest extends TestCase
 {
-	/** @var Thread */
+	/** @var AbstractThread */
 	private $thread;
 
 	private $callback;
@@ -24,7 +24,7 @@ class ThreadTest extends TestCase
 
   };
 
-		$this->thread = new Thread();
+		$this->thread = new AbstractThread();
 		$this->thread->setPid(1);
 		$this->thread->setProcessName('unit-test');
 		$this->thread->setCallback($this->callback);
@@ -69,7 +69,7 @@ class ThreadTest extends TestCase
 	public function test_run_exception()
 	{
 		$this->expectException(ThreadException::class);
-		$thread = new Thread();
+		$thread = new AbstractThread();
 		$thread->run('unit-test');
 
 	}
@@ -80,7 +80,7 @@ class ThreadTest extends TestCase
 	public function test_run_exception_status()
 	{
 		$this->expectException(ThreadException::class);
-		$thread = new Thread();
+		$thread = new AbstractThread();
 		$thread->setCallback(function() { return null;
 
   });

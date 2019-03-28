@@ -3,11 +3,11 @@
 namespace Wonderland\Thread\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Wonderland\Thread\Event\Event;
+use Wonderland\Thread\Event\PoolEvent;
 use Wonderland\Thread\Exception\ThreadException;
-use Wonderland\Thread\Mediator\Listener\Listener;
+use Wonderland\Thread\Mediator\Listener\AbstractListener;
 use Wonderland\Thread\Mediator\Mediator;
-use Wonderland\Thread\Thread;
+use Wonderland\Thread\AbstractThread;
 use Wonderland\Thread\ThreadPool;
 
 /**
@@ -39,14 +39,14 @@ class ThreadPoolTest extends TestCase
 
 	public function test_getThreads()
 	{
-		$threads = [new Thread()];
+		$threads = [new AbstractThread()];
 		$this->assertSame($this->threadPool, $this->threadPool->setThreads($threads));
 		$this->assertSame($threads, $this->threadPool->getThreads());
 	}
 
 	public function test_addThread()
 	{
-		$thread = new Thread();
+		$thread = new AbstractThread();
 		$this->assertSame($this->threadPool, $this->threadPool->addThread($thread));
 		$this->assertContains($thread, $this->threadPool->getThreads());
 	}
@@ -77,13 +77,13 @@ class ThreadPoolTest extends TestCase
 	 */
 	public function test_run()
 	{
-		$thread = new Thread();
+		$thread = new AbstractThread();
 		$thread->setCallback(function (){ return 0;
 
   });
 		$thread->setProcessName('unitTest');
 		$threads = [];
-		$listener = new Listener(Event::POOL_NEW_THREAD, function (){
+		$listener = new AbstractListener(PoolEvent::POOL_NEW_THREAD, function (){
   });
 
 		$this->threadPool->setMaxRunningThreadNb(10);

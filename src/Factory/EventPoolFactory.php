@@ -3,22 +3,21 @@
 namespace Wonderland\Thread\Factory;
 
 use Wonderland\Thread\AbstractThreadPoolMediator;
-use Wonderland\Thread\Event\Event;
-use Wonderland\Thread\Thread;
+use Wonderland\Thread\Event\PoolEvent;
+use Wonderland\Thread\AbstractThread;
 use Wonderland\Thread\ThreadPool;
 
-class EventFactory
+class EventPoolFactory
 {
-
 	/**
-	 * @param string $eventName
+	 * @param string                                $eventName
 	 * @param ThreadPool|AbstractThreadPoolMediator $pool
-	 * @param Thread|null $thread
-	 * @return Event
+	 * @param AbstractThread|null                   $thread
+	 * @return PoolEvent
 	 */
-	public static function create(string $eventName, AbstractThreadPoolMediator $pool, ?Thread $thread = null): Event
+	public static function create(string $eventName, AbstractThreadPoolMediator $pool, ?AbstractThread $thread = null): PoolEvent
 	{
-		$event = new Event($eventName);
+		$event = new PoolEvent($eventName);
 		$event->setThreadNb(count($pool->getThreads()));
 		$event->setThreadDoneNb(count($pool->getThreads()) - count($pool->getToRunThreads()));
 		$event->setMaxRunningThreadNb($pool->getMaxRunningThreadNb());
@@ -28,5 +27,4 @@ class EventFactory
 
 		return $event;
 	}
-
 }

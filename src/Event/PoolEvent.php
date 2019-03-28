@@ -3,9 +3,9 @@
 namespace Wonderland\Thread\Event;
 
 use Wonderland\Thread\Mediator\Event\EventInterface;
-use Wonderland\Thread\Thread;
+use Wonderland\Thread\AbstractThread;
 
-class Event implements EventInterface
+class PoolEvent implements EventInterface
 {
 	const POOL_RUN_START = 'run_start';
 	const POOL_RUN_STOP = 'run_stop';
@@ -39,7 +39,7 @@ class Event implements EventInterface
 	/** @var int $maxRunningThreadNb */
 	private $maxRunningThreadNb;
 
-	/** @var Thread $thread */
+	/** @var AbstractThread $thread */
 	private $thread;
 
 	/**
@@ -66,7 +66,7 @@ class Event implements EventInterface
 
 	/**
 	 * @param string $eventName
-	 * @return Event
+	 * @return PoolEvent
 	 */
 	public function setEventName(string $eventName): self
 	{
@@ -85,7 +85,7 @@ class Event implements EventInterface
 
 	/**
 	 * @param int $threadNb
-	 * @return Event
+	 * @return PoolEvent
 	 */
 	public function setThreadNb(int $threadNb): self
 	{
@@ -104,7 +104,7 @@ class Event implements EventInterface
 
 	/**
 	 * @param int $threadDoneNb
-	 * @return Event
+	 * @return PoolEvent
 	 */
 	public function setThreadDoneNb(int $threadDoneNb): self
 	{
@@ -123,7 +123,7 @@ class Event implements EventInterface
 
 	/**
 	 * @param int $threadLeftNb
-	 * @return Event
+	 * @return PoolEvent
 	 */
 	public function setThreadLeftNb(int $threadLeftNb): self
 	{
@@ -142,7 +142,7 @@ class Event implements EventInterface
 
 	/**
 	 * @param int $maxRunningThreadNb
-	 * @return Event
+	 * @return PoolEvent
 	 */
 	public function setMaxRunningThreadNb(int $maxRunningThreadNb): self
 	{
@@ -161,7 +161,7 @@ class Event implements EventInterface
 
 	/**
 	 * @param int $runningThreadNb
-	 * @return Event
+	 * @return PoolEvent
 	 */
 	public function setRunningThreadNb(int $runningThreadNb): self
 	{
@@ -171,18 +171,18 @@ class Event implements EventInterface
 	}
 
 	/**
-	 * @return Thread
+	 * @return AbstractThread
 	 */
-	public function getThread(): ?Thread
+	public function getThread(): ?AbstractThread
 	{
 		return $this->thread;
 	}
 
 	/**
-	 * @param Thread|null $thread
+	 * @param AbstractThread|null $thread
 	 * @return $this
 	 */
-	public function setThread(Thread $thread = null): self
+	public function setThread(AbstractThread $thread = null): self
 	{
 		$this->thread = $thread;
 

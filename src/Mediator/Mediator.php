@@ -7,11 +7,11 @@ use Wonderland\Thread\Mediator\Listener\ListenerInterface;
 
 class Mediator
 {
-	/** @var ListenerInterface[][] */
+	/** @var ListenerInterface[] */
 	private $listeners = [];
 
 	/**
-	 * @return ListenerInterface[][]
+	 * @return ListenerInterface[]
 	 */
 	public function getListeners(): array
 	{
@@ -24,7 +24,7 @@ class Mediator
 	 */
 	public function addListener(ListenerInterface $listener): self
 	{
-		$this->listeners[$listener->getEventName()][] = $listener;
+		$this->listeners[] = $listener;
 
 		return $this;
 	}
@@ -35,34 +35,19 @@ class Mediator
 	 */
 	public function removeListener(ListenerInterface $listener): self
 	{
-		if (!isset($this->listeners[$listener->getEventName()])) {
-			return $this;
-		}
-
-		$key = array_search($listener, $this->listeners[$listener->getEventName()]);
-
-		if (false !== $key) {
-			unset($this->listeners[$listener->getEventName()][$key]);
-		}
-
-		if (empty($this->listeners[$listener->getEventName()])) {
-			unset($this->listeners[$listener->getEventName()]);
-		}
+        if (false !== ($key = array_search($listener, $this->listeners, true))) {
+            unset($this->listeners[$key]);
+        }
 
 		return $this;
 	}
 
 	/**
-	 * @param string $eventName
 	 * @param EventInterface $event
 	 */
-	public function notify($eventName, EventInterface $event)
+	public function notify(EventInterface $event)
 	{
-		if (!isset($this->listeners[$eventName])) {
-			return;
-		}
-
-		foreach ($this->listeners[$eventName] as $listener) {
+		foreach ($this->listeners as $listener) {
 			$listener->notify($event);
 		}
 	}
