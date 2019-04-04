@@ -4,7 +4,7 @@ namespace Wonderland\Thread;
 
 use Wonderland\Thread\Mediator\Listener\ListenerInterface;
 use Wonderland\Thread\Mediator\Mediator;
-use Wonderland\Thread\Factory\EventFactory;
+use Wonderland\Thread\Factory\EventPoolFactory;
 
 abstract class AbstractThreadPoolMediator
 {
@@ -14,7 +14,7 @@ abstract class AbstractThreadPoolMediator
 	/**
 	 * @return Mediator
 	 */
-	public function getMediator()
+	protected function getMediator()
 	{
 		return $this->mediator;
 	}
@@ -50,12 +50,12 @@ abstract class AbstractThreadPoolMediator
 	}
 
 	/**
-	 * @param string $eventName
-	 * @param Thread|null $thread
+	 * @param string              $eventName
+	 * @param AbstractThread|null $thread
 	 */
-	public function notify(string $eventName, ?Thread $thread = null)
+	protected function notify(string $eventName, ?AbstractThread $thread = null)
 	{
-		$this->getMediator()->notify($eventName, EventFactory::create($eventName, $this, $thread));
+		$this->getMediator()->notify(EventPoolFactory::create($eventName, $this, $thread));
 	}
 
 }
