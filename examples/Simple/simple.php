@@ -17,7 +17,7 @@ function createThread($increment)
     } catch (Exception $e) {
         echo "error date" . PHP_EOL;
     }
-
+    
     return new TestThread('thread_' . $increment, [$date->format('H:i:s')]);
 }
 

@@ -76,6 +76,13 @@ class ThreadPool extends AbstractThreadPoolMediator
 		return $this;
 	}
 
+	public function addLiveThread(AbstractThread $thread): self
+    {
+        $this->toRunThreads[] = $thread;
+
+        return $this;
+    }
+
 	/**
 	 * @return int
 	 */
@@ -132,6 +139,7 @@ class ThreadPool extends AbstractThreadPoolMediator
 	 */
 	private function isRunningThreads(): bool
 	{
+//	    echo count($this->toRunThreads) . "\t|\t" . count($this->runningThreads) . PHP_EOL;
 		if (count($this->toRunThreads) > 0) {
 			while (count($this->runningThreads) < $this->maxRunningThreadNb && count($this->toRunThreads) > 0) {
 				$this->createThreadProcess(array_shift($this->toRunThreads));

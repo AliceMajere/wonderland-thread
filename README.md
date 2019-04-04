@@ -10,19 +10,9 @@ A small simple multi-threading library to include in projects
 
 ## Recent Update
 
-The project just got released on packagist with release 1.0.0.
+The project just got updated with version 2.0
 
 ## Installation
-
-You need to have composer and autloader installed. To be able to install the package, add this entry 
-in the "repositories" index of your composer.json 
-
-```
-      {
-        "type": "vcs",
-        "url":  "git@github.com:AliceMajere/wonderland-thread.git"
-      }
-```
 
 Just require the package with composer
 ```
@@ -31,61 +21,7 @@ composer require alicemajere/wonderland-thread
 
 ### Usage
 
-To start a multi-threading Pool, just create a new instance of ThreadPool
-``` php
-$threadPool = new ThreadPool(); 
-```
-
-We setup a maximum number of Thread to run at the same time. If we add 200 Threads to the Pool, only 5
-of them will run at the same time until the Pool processed all the 200 Threads
-``` php
-$threadPool->setMaxRunningThreadNb(5);
-```
-
-Add one or more Thread to the Pool by creating a new instance of Thread. A Thread take two parameters,
-a name and a closure function that will tell the Thread what to do. The closure have to return
-an exit status from the ones defined in the Thread class constants.
-``` php
-$thread = ThreadFactory::create(
-    'ThreadName',
-    function ($processName) {
-        // Implements the Thread processing here
-        echo $processName . PHP_EOL;
-        
-        // return an exit status at the end of the thread
-        return Thread::EXIT_STATUS_SUCCESS;
-    }
-)
-
-$threadPool->addThread($thread);
-```
-
-To run the ThreadPool, you can just do 
-```
-$threadPool->run();
-```
-
-You can add Listeners that will trigger on a particular Event while the Pool is running the Threads.
-Using Listeners can be useful if you need to do particular things for every Threads, like opening
-a separate mysql connection for every Thread. A Listener object constructor need the Event name to 
-listen to and a closure function that will tell the Listener what to do for this Event. The full list 
-of Event definition is found in the 
-Event class.
-
-``` php
-$threadPool->addListener(new Listener(
-    Event::POOL_RUN_START, // Event to trigger the listener
-    function (Event $event) use ($website) {
-        // Implements the listener
-    })
-);
-$threadPool->addListener(new Listener(
-    Event::POOL_RUN_STOP,
-    function (Event $event) {
-        $this->io->progressFinish();
-    })
-);
-```
+You can find examples on how to use the library in the `examples folder` of the library. You will need to require the library in dev mode with composer to be able to run the examples.
 
 ## Prerequisites
 

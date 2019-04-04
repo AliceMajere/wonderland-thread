@@ -1,6 +1,6 @@
 <?php
 
-namespace Wonderland\Thread\Example\Simple;
+namespace Wonderland\Thread\Example\SelfManaging;
 
 use Wonderland\Thread\AbstractThread;
 
@@ -32,7 +32,6 @@ class TestThread extends AbstractThread {
     {
         echo $processName . " " . $date . PHP_EOL;
 
-        $this->notify(new TestEvent('toto'));
         sleep(1);
 
         return self::EXIT_STATUS_SUCCESS;
